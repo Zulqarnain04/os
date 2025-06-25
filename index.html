@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Space Management Simulation</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🎮 Free Space Management Simulation</h1>
+
+  <div id="menu">
+    <button class="method-btn" onclick="showSection('bitmap')">🟩 Bitmap</button>
+    <button class="method-btn" onclick="showSection('linked')">🔗 Linked List</button>
+  </div>
+
+  <div id="bitmap" class="section">
+    <h2>🟩 Bitmap Simulation</h2>
+    <div id="bitmap-container" class="container"></div>
+    <div class="btn-group">
+      <button onclick="allocateBit()">Allocate Block</button>
+      <button onclick="freeBit()">Free Block</button>
+      <button onclick="resetBits()">Reset</button>
+    </div>
+  </div>
+
+  <div id="linked" class="section">
+    <h2>🔗 Linked List Simulation</h2>
+    <div id="linked-container" class="container"></div>
+    <div class="btn-group">
+      <button onclick="allocateLinked()">Allocate Block</button>
+      <button onclick="freeLinked()">Free Block</button>
+      <button onclick="resetLinked()">Reset</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="bitmap.js"></script>
+  <script src="linkedlist.js"></script>
+  <script src="grouping.js"></script>
+  <script src="counting.js"></script>
+</body>
+</html>
