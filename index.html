@@ -13,6 +13,7 @@
     <button class="method-btn" onclick="showSection('bitmap')">🟩 Bitmap</button>
     <button class="method-btn" onclick="showSection('linked')">🔗 Linked List</button>
     <button class="method-btn" onclick="showSection('grouping')">🧱 Grouping</button>
+    <button class="method-btn" onclick="showSection('counting')">📊 Counting</button>
   </div>
 
   <div id="bitmap" class="section">
@@ -42,6 +43,16 @@
     <button onclick="allocateGroup()">Allocate Group</button>
     <button onclick="freeGroup()">Free Group</button>
     <button onclick="resetGroup()">Reset</button>
+  </div>
+</div>
+
+<div id="counting" class="section">
+  <h2>📊 Counting Simulation</h2>
+  <div id="counting-container" class="container"></div>
+  <div class="btn-group">
+    <button onclick="allocateCounting()">Allocate</button>
+    <button onclick="freeCounting()">Free</button>
+    <button onclick="resetCounting()">Reset</button>
   </div>
 </div>
 
