@@ -6,5 +6,7 @@ function showSection(id) {
 window.onload = function () {
   initBitmap();
   initLinked();
+  initGrouping(); // ✅ required!
   showSection('bitmap');
 };
+
