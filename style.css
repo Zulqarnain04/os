@@ -76,6 +76,7 @@ h1 {
 
 .bit-block.used { background-color: #e53935; }
 .bit-block { background-color: #8bc34a; }
+
 .link-block.used { background-color: #e53935; }
 .link-block { background-color: #03a9f4; }
 
@@ -114,6 +115,7 @@ h1 {
   background-color: #004d40;
 }
 
+/* Grouping simulation specific */
 .group-wrapper {
   display: flex;
   align-items: center;
@@ -126,6 +128,7 @@ h1 {
   flex-wrap: wrap;
 }
 
+/* Head and member blocks */
 .bit-block.head {
   background-color: #6a1b9a;
   color: white;
@@ -134,4 +137,13 @@ h1 {
 
 .bit-block.member {
   background-color: #29b6f6;
+}
+
+/* 🔥 Overriding colors when used */
+.bit-block.member.used {
+  background-color: #e53935 !important;
+}
+
+.bit-block.head.used {
+  background-color: #c2185b !important;
 }
