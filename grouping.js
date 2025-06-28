@@ -9,56 +9,55 @@ function initGrouping() {
   const container = document.getElementById('grouping-container');
   if (!container) return;
 
-  container.innerHTML = ''; // Clear previous content if re-initializing
+  container.innerHTML = '';
   groupBlocks.length = 0;
   groupAllocIndex = -1;
 
   for (let g = 0; g < GROUP_HEADS; g++) {
-    const groupWrapper = document.createElement('div');
-    groupWrapper.style.display = 'flex';
-    groupWrapper.style.alignItems = 'center';
-    groupWrapper.style.border = '2px dashed #aaa';
-    groupWrapper.style.padding = '10px';
-    groupWrapper.style.margin = '10px 0';
-    groupWrapper.style.borderRadius = '10px';
-    groupWrapper.style.justifyContent = 'center';
+    const row = document.createElement('div');
+    row.style.display = 'flex';
+    row.style.alignItems = 'center';
+    row.style.margin = '15px 0';
 
-    // Create head block (outside the dashed group box)
+    // Head block
     const head = createBlock(`H${g}`, 'head');
-    container.appendChild(head);
+    row.appendChild(head);
 
-    // Arrow from head to group
+    // Arrow to group
     const headArrow = document.createElement('span');
     headArrow.classList.add('arrow');
     headArrow.textContent = '→';
-    container.appendChild(headArrow);
+    row.appendChild(headArrow);
 
-    // Group members
+    // Group box (dashed)
+    const groupWrapper = document.createElement('div');
+    groupWrapper.classList.add('group-wrapper');
+
     for (let m = 0; m < GROUP_MEMBERS; m++) {
       const id = `B${g * GROUP_MEMBERS + m}`;
       const member = createBlock(id, 'member');
       groupWrapper.appendChild(member);
       groupBlocks.push({ element: member, used: false, group: g });
+
+      // If last member and not last group, show arrow to next head
+      if (m === GROUP_MEMBERS - 1 && g < GROUP_HEADS - 1) {
+        const arrow = document.createElement('span');
+        arrow.classList.add('arrow');
+        arrow.textContent = '→';
+        groupWrapper.appendChild(arrow);
+
+        const nextHeadTag = document.createElement('div');
+        nextHeadTag.classList.add('bit-block', 'head');
+        nextHeadTag.style.background = '#aaa';
+        nextHeadTag.textContent = `H${g + 1}`;
+        nextHeadTag.style.pointerEvents = 'none';
+        nextHeadTag.style.opacity = 0.6;
+        groupWrapper.appendChild(nextHeadTag);
+      }
     }
 
-    // For groups 0 to 2, last member points to next head
-    if (g < GROUP_HEADS - 1) {
-      const arrow = document.createElement('span');
-      arrow.classList.add('arrow');
-      arrow.textContent = '→';
-      groupWrapper.appendChild(arrow);
-
-      const nextHead = document.createElement('div');
-      nextHead.classList.add('bit-block');
-      nextHead.textContent = `H${g + 1}`;
-      nextHead.style.background = '#777';
-      nextHead.style.color = 'white';
-      nextHead.style.marginLeft = '10px';
-      nextHead.style.pointerEvents = 'none';
-      groupWrapper.appendChild(nextHead);
-    }
-
-    container.appendChild(groupWrapper);
+    row.appendChild(groupWrapper);
+    container.appendChild(row);
   }
 }
 
