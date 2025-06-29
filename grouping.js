@@ -1,6 +1,6 @@
 const GROUP_TOTAL_BLOCKS = 16;
 const GROUP_HEADS = 4;
-const GROUP_MEMBERS = 3; // Per group (excluding head)
+const GROUP_MEMBERS = 3;
 
 const groupBlocks = [];
 let groupAllocIndex = -1;
@@ -14,22 +14,15 @@ function initGrouping() {
   groupAllocIndex = -1;
 
   for (let g = 0; g < GROUP_HEADS; g++) {
-    const row = document.createElement('div');
-    row.style.display = 'flex';
-    row.style.alignItems = 'center';
-    row.style.margin = '15px 0';
-
-    // Head block
+    // Head block (outside dashed box)
     const head = createBlock(`H${g}`, 'head');
-    row.appendChild(head);
+    container.appendChild(head);
 
-    // Arrow to group
     const headArrow = document.createElement('span');
     headArrow.classList.add('arrow');
     headArrow.textContent = '→';
-    row.appendChild(headArrow);
+    container.appendChild(headArrow);
 
-    // Group box (dashed)
     const groupWrapper = document.createElement('div');
     groupWrapper.classList.add('group-wrapper');
 
@@ -38,41 +31,37 @@ function initGrouping() {
       const member = createBlock(id, 'member');
       groupWrapper.appendChild(member);
       groupBlocks.push({ element: member, used: false, group: g });
-
-      // If last member and not last group, show arrow to next head
-      if (m === GROUP_MEMBERS - 1 && g < GROUP_HEADS - 1) {
-        const arrow = document.createElement('span');
-        arrow.classList.add('arrow');
-        arrow.textContent = '→';
-        groupWrapper.appendChild(arrow);
-
-        const nextHeadTag = document.createElement('div');
-        nextHeadTag.classList.add('bit-block', 'head');
-        nextHeadTag.style.background = '#aaa';
-        nextHeadTag.textContent = `H${g + 1}`;
-        nextHeadTag.style.pointerEvents = 'none';
-        nextHeadTag.style.opacity = 0.6;
-        groupWrapper.appendChild(nextHeadTag);
-      }
     }
 
-    row.appendChild(groupWrapper);
-    container.appendChild(row);
+    // arrow to next head (for all but last)
+    if (g < GROUP_HEADS - 1) {
+      const arrow = document.createElement('span');
+      arrow.classList.add('arrow');
+      arrow.textContent = '→';
+      groupWrapper.appendChild(arrow);
+
+      const nextHead = document.createElement('div');
+      nextHead.classList.add('bit-block', 'head');
+      nextHead.textContent = `H${g + 1}`;
+      nextHead.style.opacity = '0.5';
+      nextHead.style.pointerEvents = 'none';
+      groupWrapper.appendChild(nextHead);
+    }
+
+    container.appendChild(groupWrapper);
   }
 }
 
 function createBlock(label, type) {
   const div = document.createElement('div');
   div.classList.add('bit-block');
-  div.style.margin = '0 5px';
   div.textContent = label;
+  div.style.margin = '0 5px';
 
   if (type === 'head') {
-    div.style.backgroundColor = '#6a1b9a';
-    div.style.color = 'white';
-    div.style.fontWeight = 'bold';
+    div.classList.add('head');
   } else if (type === 'member') {
-    div.style.backgroundColor = '#29b6f6';
+    div.classList.add('member');
   }
 
   return div;
