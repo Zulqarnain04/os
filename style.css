@@ -122,5 +122,5 @@ h1 {
 
 /* ✅ When allocated (used), turn red */
 .bit-block.member.used {
-  background-color: #e53935 !important;
+  background-color: #e53935;
 }
